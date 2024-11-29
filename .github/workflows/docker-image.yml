@@ -1,0 +1,31 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build-and-push:
+    runs-on: windows-latest  # Use a Windows runner to build Windows containers
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Log in to Azure Container Registry
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.ACR_LOGIN_SERVER }}
+          username: ${{ secrets.AZURE_CLIENT_ID }}
+          password: ${{ secrets.AZURE_CLIENT_SECRET }}
+
+      - name: Build Docker Image
+        run: |
+          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/samplewebapp:windows .
+          docker tag ${{ secrets.ACR_LOGIN_SERVER }}/samplewebapp:windows ${{ secrets.ACR_LOGIN_SERVER }}/samplewebapp:latest
+
+      - name: Push Docker Image
+        run: |
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/samplewebapp:windows
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/samplewebapp:latest
