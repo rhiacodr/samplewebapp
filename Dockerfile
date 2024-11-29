@@ -4,7 +4,7 @@ WORKDIR /app
 EXPOSE 80
 
 # Use the official .NET SDK for build
-FROM mcr.microsoft.com/dotnet/sdk:6.0-windowsservercore-ltsc2022 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0-windowsservercore-ltsc2022 AS build
 WORKDIR /src
 COPY ["SampleWebApp.csproj", "./"]
 RUN dotnet restore "./SampleWebApp.csproj"
