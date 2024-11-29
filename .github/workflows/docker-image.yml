@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: windows-latest  # Use a Windows runner to build Windows containers
+    runs-on: windows-2019  # Specify Windows Server 2019
     environment: master  # Replace 'production' with your environment name
     steps:
       - name: Checkout Code
