@@ -1,10 +1,10 @@
 # Use the official .NET runtime as a base image for Windows
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-windowsservercore-ltsc2022 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-windowsservercore-ltsc2019 AS base
 WORKDIR /app
 EXPOSE 80
 
 # Use the official .NET SDK for build
-FROM mcr.microsoft.com/dotnet/sdk:8.0-windowsservercore-ltsc2022 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0-windowsservercore-ltsc2019 AS build
 WORKDIR /src
 COPY ["SampleWebApp.csproj", "./"]
 RUN dotnet restore "./SampleWebApp.csproj"
